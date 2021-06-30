@@ -1,0 +1,9 @@
+.details__income {
+    border-bottom: 10px solid rgba(0,255,0,0.5);
+    margin-right: 10px;
+}
+
+.details__expenses {
+    border-bottom : 10px solid rgba(255,0,0,0.5);
+    margin-left: 10px;
+}

@@ -1,0 +1,12 @@
+.avatar__income {
+    background-color: rgb(7, 134, 7) !important;
+}
+
+.avatar__expenses {
+    background-color: rgb(226, 19, 19) !important;
+}
+
+.list {
+    max-height: 160px;
+    overflow: auto;
+}
