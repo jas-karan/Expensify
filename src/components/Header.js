@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import "./Header.css"
-import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
+import { auth } from "../firebase"
 
 function Header() {
+
     return (
         <div className="header">
             <div className="header__left">
@@ -14,8 +16,7 @@ function Header() {
                 <Link style={{ textDecoration: "none ", color: "black" }} to="/"><h4 className="navLink">Home</h4></Link>
                 <Link style={{ textDecoration: "none ", color: "black" }} to="/dashboard"><h4 className="navLink">Dashboard</h4></Link>
                 <Link style={{ textDecoration: "none ", color: "black" }} to="/about"><h4 className="navLink">Author</h4></Link>
-                <Avatar className="header__avatar" src="https://media-exp1.licdn.com/dms/image/C4D03AQF3b0fFtiszXQ/profile-displayphoto-shrink_200_200/0/1622710313970?e=1628121600&v=beta&t=7OZ8xmsv9yE6ZW-5XXA0JgteUAi5imGNFqlj88mnxyc" />
-                <h4>Jaskaran</h4>
+                <Button variant="contained" style={{ backgroundColor: '#12b5c4', color: 'white' }} onClick={() => auth.signOut()}>Logout</Button>
             </div>
         </div>
     )

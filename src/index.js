@@ -5,13 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from "./Context/context";
 import { SpeechProvider } from "@speechly/react-client";
+import { AuthProvider } from "./Context/AuthContext";
 
 ReactDOM.render(
-  <SpeechProvider appId="d2f7e357-59e0-48a4-9ec0-dcf0d8dde36b" language="en-US">
-    <Provider>
-      <App />
-    </Provider>
-  </SpeechProvider>,
+  <AuthProvider>
+    <SpeechProvider appId="d2f7e357-59e0-48a4-9ec0-dcf0d8dde36b" language="en-US">
+      <Provider>
+        <App />
+      </Provider>
+    </SpeechProvider>
+  </AuthProvider>,
   document.getElementById('root')
 );
 

@@ -5,8 +5,12 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { ExpenseTrackerContext } from "../Context/context";
+import { AuthContext } from "../Context/AuthContext";
+
 
 function Welcome({ where }) {
+    const { user } = useContext(AuthContext);
+
     const { balance } = useContext(ExpenseTrackerContext);
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -26,9 +30,9 @@ function Welcome({ where }) {
     return (
         <div className="welcome">
             <div className="welcome__left">
-                <Avatar className="welcome__avatar" src="https://media-exp1.licdn.com/dms/image/C4D03AQF3b0fFtiszXQ/profile-displayphoto-shrink_200_200/0/1622710313970?e=1628121600&v=beta&t=7OZ8xmsv9yE6ZW-5XXA0JgteUAi5imGNFqlj88mnxyc" />
+                <Avatar className="welcome__avatar" src={user.photoURL}>{user.displayName[0]}</Avatar>
                 <div className="welcome__message">
-                    <h1 style={{ fontWeight: '500', marginBottom: '10px' }}>Welcome, Jaskaran Singh</h1>
+                    <h1 style={{ fontWeight: '500', marginBottom: '10px' }}>Welcome, {user.displayName}</h1>
                     <p style={{ fontWeight: '250' }}>{where === 'dashboard' ? "This is your Expensify Dashboard, Overview of everything" :
                         "Head over to Dashboard to see your transaction history"}</p>
                 </div>

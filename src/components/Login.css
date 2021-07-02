@@ -1,0 +1,33 @@
+.login {
+    display: grid;
+    place-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.login__top {
+    display: flex;
+    margin-bottom: 30px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login__top > img {
+    height: 60px;
+}
+
+.login__bottom {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 30px;
+    border: 1px solid whitesmoke;
+    min-width: 400px;
+}
+
+.login__bottom > h1 {
+    margin-bottom: 10px;
+    font-weight: 500;
+}

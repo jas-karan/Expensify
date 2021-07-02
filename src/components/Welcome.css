@@ -16,8 +16,9 @@
 }
 
 .welcome__avatar {
-    height: 100px !important;
-    width: 100px !important;
+    height: 90px !important;
+    width: 90px !important;
+    object-fit: contain;
 }
 
 .welcome__right {
