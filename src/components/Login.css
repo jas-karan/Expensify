@@ -1,4 +1,11 @@
 .login {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.login__left {
+    flex: 2;
     display: grid;
     place-items: center;
     margin-left: auto;
@@ -24,10 +31,40 @@
     background-color: white;
     padding: 30px;
     border: 1px solid whitesmoke;
-    min-width: 400px;
+    box-shadow: 0 0 30px rgba(33,33,33,.2);
 }
 
 .login__bottom > h1 {
     margin-bottom: 10px;
     font-weight: 500;
+}
+
+.login__right{
+    flex:3 ;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    justify-content: center;
+    color: white;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.5)),url("https://images.unsplash.com/photo-1545733099-152483684cb5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80");
+    background-size: cover;
+}
+
+.login__right > h1 {
+    margin-left: 30px;
+    margin-top: -60px;
+    font-size: 70px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+@media (max-width: 850px){
+    .login {
+        flex-direction: column;
+    }
+
+    .login__right {
+       display: none;
+    }
 }

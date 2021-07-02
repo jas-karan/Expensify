@@ -1,29 +1,33 @@
-import React, { useReducer, createContext } from "react";
-import contextReducer from "./contextReducer";
+import React, { createContext, useEffect, useState, useContext } from "react";
+import { db } from '../firebase.js';
+import { AuthContext } from "./AuthContext.js";
 
-const initialState = JSON.parse(localStorage.getItem('transactions')) || [{ "amount": 2000, "category": "Lottery", "type": "Income", "date": "2021-06-29", "id": "33013b25-7ed9-4d50-88ae-e17ef6c314f2" }, { "amount": 120, "category": "Car", "type": "Expense", "date": "2021-06-29", "id": "da853c8a-7733-4092-97f0-79256f32473c" }];
-
-export const ExpenseTrackerContext = createContext(initialState);
+export const ExpenseTrackerContext = createContext();
 
 export const Provider = ({ children }) => {
-    const [transactions, dispatch] = useReducer(contextReducer, initialState);
+    const { user } = useContext(AuthContext);
+    const [transactions, setTransactions] = useState([]);
 
-    //Action creators
-
-    const deleteTransaction = (id) => {
-        dispatch({ type: 'DELETE_TRANSACTION', payload: id });
-    }
-
-    const addTransaction = (transaction) => {
-        dispatch({ type: 'ADD_TRANSACTION', payload: transaction });
-    }
+    useEffect(() => {
+        db.collection('Transactions').onSnapshot(snapshot => {
+            if (user) {
+                const d = snapshot.docs.filter(doc => doc.data().email === user.email);
+                setTransactions(d.map(doc => (
+                    {
+                        id: doc.id,
+                        data: doc.data(),
+                    }
+                )))
+            }
+        });
+    }, [user]);
 
     const balance = transactions.reduce((acc, currVal) => {
-        return (currVal.type === 'Expense' ? acc - currVal.amount : acc + currVal.amount);
+        return (currVal.data.type === 'Income' ? acc + currVal.data.amount : acc - currVal.data.amount);
     }, 0);
 
     return (
-        <ExpenseTrackerContext.Provider value={{ deleteTransaction, addTransaction, transactions, balance }}>
+        <ExpenseTrackerContext.Provider value={{ transactions, balance }}>
             {children}
         </ExpenseTrackerContext.Provider>
     )

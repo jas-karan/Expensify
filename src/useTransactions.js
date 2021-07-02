@@ -7,16 +7,16 @@ const useTransactions = (title) => {
 
     resetCategories();
     const { transactions } = useContext(ExpenseTrackerContext);
-    const selectedTransactions = transactions.filter((t) => t.type === title);
-    const total = selectedTransactions.reduce((acc, currVal) => acc += currVal.amount, 0);
+    const selectedTransactions = transactions.filter((t) => t.data.type === title);
+    const total = selectedTransactions.reduce((acc, currVal) => acc += currVal.data.amount, 0);
 
     const categories = title === 'Income' ? incomeCategories : expenseCategories;
 
     selectedTransactions.forEach((t) => {
         // find category it belongs to
-        const category = categories.find((c) => c.type === t.category);
+        const category = categories.find((c) => c.type === t.data.category);
         //increase this categories' amount 
-        if (category) category.amount += t.amount;
+        if (category) category.amount += t.data.amount;
     });
 
     //categories for which transaction exists

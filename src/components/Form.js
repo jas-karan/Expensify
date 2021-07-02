@@ -1,30 +1,34 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import "./Form.css";
 import { TextField, Typography, Grid, Button, FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
-import { ExpenseTrackerContext } from "../Context/context";
-import { v4 as uuidv4 } from 'uuid';
 import { incomeCategories, expenseCategories } from '../constants';
 import formatDate from "../util";
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from "@material-ui/lab/Alert";
 import { useSpeechContext } from '@speechly/react-client';
+import { AuthContext } from '../Context/AuthContext';
+import { db } from "../firebase";
 
 const initialState = {
     amount: '',
     category: '',
     type: 'Income',
     date: formatDate(new Date()),
+
 }
 
 function Form() {
+    const { user } = useContext(AuthContext);
     const [formData, setFormData] = useState(initialState);
     const [open, setOpen] = useState({ isOpen: false, msg: "" });
-    const { addTransaction } = useContext(ExpenseTrackerContext);
     const { segment } = useSpeechContext();
     const [transactionSuccess, setTransactionSuccess] = useState(false);
 
-    const createTransaction = () => {
+    const addTransaction = (transaction) => {
+        db.collection('Transactions').add(transaction);
+    }
 
+    const createTransaction = () => {
         if (formData.type === '') {
             setOpen({ isOpen: true, msg: "was it Income or Expense?" });
             return;
@@ -38,7 +42,7 @@ function Form() {
             return;
         }
 
-        const transaction = { ...formData, amount: Number(formData.amount), id: uuidv4() };
+        const transaction = { ...formData, amount: Number(formData.amount), email: user.email };
 
         addTransaction(transaction);
         setTransactionSuccess(true);

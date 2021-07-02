@@ -16,10 +16,6 @@
     margin-left: 50px;
 }
 
-.header__left > h1 {
-    margin-left: 10px;
-}
-
 .header__right {
     display: flex;
     justify-content: space-between;
@@ -56,8 +52,23 @@
         justify-content: center;
         margin: auto;
         margin-top: 20px;
+        overflow-x: auto;
     }
-    .header__right>h4 {
-        display:none;
+}
+
+.header__logout__small{
+    display: none !important;
+}
+
+@media (max-width: 450px){
+    .header__right {
+        margin-right: -10px;
+    }
+
+    .header__logout{
+        display: none !important;
+    }
+    .header__logout__small {
+        display: block !important;
     }
 }
