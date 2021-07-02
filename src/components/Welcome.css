@@ -1,0 +1,45 @@
+.welcome{
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content:space-between;
+}
+
+.welcome__left{
+    display: flex;
+    align-items : center;
+    margin-left: 150px;
+}
+
+.welcome__message {
+    margin-left: 30px;
+}
+
+.welcome__avatar {
+    height: 100px !important;
+    width: 100px !important;
+}
+
+.welcome__right {
+    margin-right: 150px;
+}
+
+@media (max-width: 1042px){
+    .welcome__left{
+        margin-left: 20px;
+    }
+    .welcome__right{
+        margin-right: 20px;
+    }
+}
+
+@media (max-width: 812px){
+    .welcome{
+        flex-direction: column;
+        align-items: flex-start
+    }
+    .welcome__right{
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+}

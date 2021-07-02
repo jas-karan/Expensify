@@ -8,28 +8,33 @@ import { ExpenseTrackerContext } from '../Context/context';
 function List() {
     const { deleteTransaction, transactions } = useContext(ExpenseTrackerContext);
 
-
-    return (
-        <MUIList dense={false} className="list">
-            {transactions?.map((transaction) => (
-                <Slide direction="down" in mountOnEnter unmountOnExit key={transaction.id}>
-                    <ListItem>
-                        <ListItemAvatar>
-                            <Avatar className={transaction.type === "Income" ? "avatar__income" : "avatar__expenses"}>
-                                <MoneyOff />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText primary={transaction.category} secondary={`$${transaction.amount}  Date: ${transaction.date}`} />
-                        <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete" onClick={() => deleteTransaction(transaction.id)}>
-                                <Delete />
-                            </IconButton>
-                        </ListItemSecondaryAction>
-                    </ListItem>
-                </Slide>
-            ))}
-        </MUIList>
-    )
+    if (transactions.length) {
+        return (
+            <MUIList dense={false} className="list">
+                {transactions?.map((transaction) => (
+                    <Slide direction="down" in mountOnEnter unmountOnExit key={transaction.id}>
+                        <ListItem>
+                            <ListItemAvatar>
+                                <Avatar className={transaction.type === "Income" ? "avatar__income" : "avatar__expenses"}>
+                                    <MoneyOff />
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText primary={transaction.category} secondary={`$${transaction.amount}  Date: ${transaction.date}`} />
+                            <ListItemSecondaryAction>
+                                <IconButton edge="end" aria-label="delete" onClick={() => deleteTransaction(transaction.id)}>
+                                    <Delete />
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    </Slide>
+                ))}
+            </MUIList>
+        )
+    } else {
+        return (
+            <div className='list__noTransaction'>You don't have any transaction</div>
+        )
+    }
 }
 
 export default List

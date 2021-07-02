@@ -24,6 +24,7 @@ function Form() {
     const [transactionSuccess, setTransactionSuccess] = useState(false);
 
     const createTransaction = () => {
+
         if (formData.type === '') {
             setOpen({ isOpen: true, msg: "was it Income or Expense?" });
             return;
@@ -32,7 +33,7 @@ function Form() {
             setOpen({ isOpen: true, msg: `What type of ${formData.type}?` });
             return;
         }
-        else if (Number(formData.amount) <= 0) {
+        else if (formData.amount === "" || Number(formData.amount) <= 0) {
             setOpen({ isOpen: true, msg: "Add some valid amount!" });
             return;
         }
@@ -45,6 +46,7 @@ function Form() {
     }
 
     useEffect(() => {
+
         if (segment) {
             if (segment.intent.intent === 'add_expense') {
                 setFormData({ ...formData, type: 'Expense' })
@@ -78,8 +80,9 @@ function Form() {
                         break;
                 }
             })
-            if (segment.isFinal) {
+            if (segment.isFinal && formData.amount && formData.category && formData.date && formData.type) {
                 createTransaction();
+                setFormData(initialState);
             }
         }
     }, [segment]);
@@ -88,47 +91,41 @@ function Form() {
 
     return (
         <div>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <Typography style={{ marginTop: '10px' }} align="center" variant="subtitle2" gutterBottom>
-                        {
-                            segment && segment.words.map((w) => w.value).join(" ")
-                        }
-                    </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                    <FormControl fullWidth>
-                        <InputLabel>Type</InputLabel>
-                        <Select value={formData.type} onChange={e => setFormData({ ...formData, type: e.target.value })}>
-                            <MenuItem value="Income">Income</MenuItem>
-                            <MenuItem value="Expense">Expense</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item xs={6}>
-                    <FormControl fullWidth>
-                        <InputLabel>Category</InputLabel>
-                        <Select value={formData.category} onChange={e => setFormData({ ...formData, category: e.target.value })}>
-                            {
-                                selectedCategories?.map((c) => (
-                                    <MenuItem key={c.type} value={c.type}>{c.type}</MenuItem>
-                                ))
-                            }
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item xs={6}>
-                    <TextField type="number" label="Amount" fullWidth value={formData.amount}
-                        onChange={e => setFormData({ ...formData, amount: e.target.value })} />
-                </Grid>
-                <Grid item xs={6}>
-                    <TextField type="date" label="Date" fullWidth value={formData.date}
-                        onChange={e => setFormData({ ...formData, date: formatDate(e.target.value) })} />
-                </Grid>
-                <Button className="button" variant="outlined" color="primary" fullWidth
-                    onClick={createTransaction}
-                >Create</Button>
-            </Grid>
+            <Typography style={{ color: 'gray', fontFamily: 'monospace', marginBottom: '30px', maxWidth: '550px' }} align="center" variant="subtitle2" gutterBottom>
+                {
+                    segment && segment.words.map((w) => w.value).join(" ")
+                }
+            </Typography>
+
+            <FormControl fullWidth>
+                <InputLabel>Type</InputLabel>
+                <Select value={formData.type} onChange={e => setFormData({ ...formData, type: e.target.value })}>
+                    <MenuItem value="Income">Income</MenuItem>
+                    <MenuItem value="Expense">Expense</MenuItem>
+                </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+                <InputLabel>Category</InputLabel>
+                <Select value={formData.category} onChange={e => setFormData({ ...formData, category: e.target.value })}>
+                    {
+                        selectedCategories?.map((c) => (
+                            <MenuItem key={c.type} value={c.type}>{c.type}</MenuItem>
+                        ))
+                    }
+                </Select>
+            </FormControl>
+
+            <TextField type="number" label="Amount" fullWidth value={formData.amount}
+                onChange={e => setFormData({ ...formData, amount: e.target.value })} />
+
+            <TextField type="date" label="Date" fullWidth value={formData.date}
+                onChange={e => setFormData({ ...formData, date: formatDate(e.target.value) })} />
+
+            <Button className="button" variant="outlined" color="primary" fullWidth
+                onClick={createTransaction}
+            >Create</Button>
+
 
 
             <Snackbar
@@ -144,9 +141,10 @@ function Form() {
                 anchorOrigin={{ vertical: "top", horizontal: "center" }}
                 open={transactionSuccess}
                 onClose={() => setTransactionSuccess(false)}
-                autoHideDuration={2000}>
+                autoHideDuration={3000}>
                 <Alert severity="success">
-                    Transaction added successfully!
+                    Transaction added successfully!<br />
+                    Head over to Dashboard to confirm.
                 </Alert>
             </Snackbar>
 

@@ -1,0 +1,14 @@
+.data {
+    display: flex;
+    flex-direction: column;
+}
+
+.data__form {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.data__stats {
+    display: flex;
+    flex-direction: column;
+}

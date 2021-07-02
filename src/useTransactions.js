@@ -4,6 +4,7 @@ import { ExpenseTrackerContext } from './Context/context';
 import { incomeCategories, expenseCategories, resetCategories } from './constants';
 
 const useTransactions = (title) => {
+
     resetCategories();
     const { transactions } = useContext(ExpenseTrackerContext);
     const selectedTransactions = transactions.filter((t) => t.type === title);

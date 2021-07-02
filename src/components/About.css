@@ -1,0 +1,41 @@
+.about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+    background-color: rgba(0,0,0,0.4);
+    padding: 30px;
+    height: 100%;
+}
+
+.about__top > img {
+    border-radius: 50%;
+    height: 190px;
+}
+
+.about__bottom {
+    color : white;
+    padding: 30px;
+    text-align: center;
+}
+
+.about__bottom > h1, .about__bottom > h2 {
+    margin-bottom: 20px;
+}
+
+.about__icons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.about__icon {
+    font-size: 50px !important;
+}
+
+@media (max-width: 746px){
+    .about{
+        margin-top:0;
+    }
+}

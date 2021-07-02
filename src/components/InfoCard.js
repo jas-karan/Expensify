@@ -4,12 +4,15 @@ const isIncome = Math.round(Math.random());
 
 function InfoCard() {
     return (
-        <div style={{ textAlign: 'center', padding: '0 10%' }}>
+        <div style={{ textAlign: 'center', padding: '20px', marginBottom: '20px', fontWeight: '500' }}>
             Try Saying: <br />
-            Add {isIncome ? 'Income ' : 'Expense '}
-            for {isIncome ? '$100 ' : '$50 '}
-            in Category {isIncome ? 'Business ' : 'Bills '}
-            for {isIncome ? 'Monday' : 'Tuesday'}
+            <div style={{ textDecoration: 'underline' }}>
+                Add {isIncome ? 'Income ' : 'Expense '}
+                for {isIncome ? '$100 ' : '$50 '}
+                in Category {isIncome ? 'Business ' : 'Bills '}
+                for {isIncome ? 'Monday' : 'Tuesday'} ......
+            </div>
+
         </div>
     )
 }
