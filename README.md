@@ -1,3 +1,19 @@
+# Expensify - Expense Tracker
+
+### Project is Deployed [*Here*](https://expensify262.web.app/)
+## _Application Screenshots_
+<br/>
+<img src="https://github.com/jas-karan/Project-Pics/blob/master/exp1.JPG" />
+
+<br/><br/>
+
+<img src="https://github.com/jas-karan/Project-Pics/blob/master/exp2.JPG" />
+
+<br/><br/>
+
+<img src="https://github.com/jas-karan/Project-Pics/blob/master/exp3.JPG" />
+
+<br/><br/>
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
